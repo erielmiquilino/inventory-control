@@ -2,13 +2,16 @@ package com.inventoryControl.controller;
 
 import com.inventoryControl.domain.Product;
 import com.inventoryControl.service.product.IProductService;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller("product")
+@RestController(value = "product")
+@Api(value = "product")
 public class ProductController {
 
     private final IProductService productService;
