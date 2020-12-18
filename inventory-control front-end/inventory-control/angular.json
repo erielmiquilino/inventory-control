@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "inventory-control"
+  "defaultProject": "inventory-control",
+  "cli": {
+    "analytics": "25607fe1-16e6-4546-a2de-2ce4c791b071"
+  }
 }
