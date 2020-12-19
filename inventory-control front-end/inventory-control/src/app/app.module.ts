@@ -10,6 +10,12 @@ import {CalendarModule} from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputMaskModule} from 'primeng/inputmask';
+import {LocalityService} from './features/shared/locality/locality.service';
+import {HttpClientModule} from '@angular/common/http';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {CepService} from './features/shared/cep/cep.service';
 
 registerLocaleData(ptBr);
 
@@ -19,14 +25,22 @@ registerLocaleData(ptBr);
     SellerFormComponent
   ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        InputTextModule,
-        CalendarModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
+      BrowserModule,
+      AppRoutingModule,
+      InputTextModule,
+      CalendarModule,
+      ReactiveFormsModule,
+      DropdownModule,
+      InputMaskModule,
+      BrowserAnimationsModule,
+      AutoCompleteModule,
+      HttpClientModule
     ],
-  providers: [{provide: LOCALE_ID, useValue: 'pt'}],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'pt'},
+    LocalityService,
+    CepService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

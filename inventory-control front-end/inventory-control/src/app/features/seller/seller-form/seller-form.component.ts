@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalityService} from '../../shared/locality/locality.service';
+import {State} from '../../shared/locality/model/State';
+import {City} from '../../shared/locality/model/city';
+import {CepService} from '../../shared/cep/cep.service';
 
 @Component({
   selector: 'app-seller-form',
@@ -7,9 +11,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellerFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private localityService: LocalityService, private cepService: CepService) { }
+
+  public states!: State[];
+  public filteredStates!: State[];
+  public cities: City[] = [];
+  public filteredCities: City[] = [];
 
   ngOnInit(): void {
+    this.loadStates();
+  }
+
+  public filterState(event: any): void {
+    const filtered: State[] = [];
+    const query = event.query;
+    for (const state of this.states) {
+      if (state.nome.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        filtered.push(state);
+      }
+    }
+    this.filteredStates = filtered;
+  }
+
+  public filterCity(event: any): void {
+    const filtered: City[] = [];
+    const query = event.query;
+    for (const city of this.cities) {
+      if (city.nome.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        filtered.push(city);
+      }
+    }
+    this.filteredCities = filtered;
+  }
+
+  public findCep(): void {
+    this.cepService.getAddressByCep('88501030').subscribe(cep => {
+      if (cep.uf && cep.ibge) {
+        const stateName = this.states.find(x => x.sigla === cep.uf)?.nome;
+        this.loadCities();
+        const cityName = this.cities.find(x => x.id === parseInt(cep.ibge, 10))?.nome;
+      }
+    });
+  }
+
+  public loadCities(): void {
+    this.localityService.getAllCitiesByStateId(33).subscribe(cities => {
+      this.cities = cities;
+    });
+  }
+
+  private loadStates(): void {
+    this.localityService.getAllStates().subscribe(states => {
+      this.states = states;
+    });
   }
 
 }
