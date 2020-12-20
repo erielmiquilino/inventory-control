@@ -3,6 +3,7 @@ import {LocalityService} from '../../shared/locality/locality.service';
 import {State} from '../../shared/locality/model/State';
 import {City} from '../../shared/locality/model/city';
 import {CepService} from '../../shared/cep/cep.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-seller-form',
@@ -20,6 +21,12 @@ export class SellerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStates();
+  }
+
+  initializeFormGroup(): void {
+    const sellerForm = new FormGroup({
+
+    });
   }
 
   public filterState(event: any): void {
@@ -48,16 +55,15 @@ export class SellerFormComponent implements OnInit {
     this.cepService.getAddressByCep('88501030').subscribe(cep => {
       if (cep.uf && cep.ibge) {
         const stateName = this.states.find(x => x.sigla === cep.uf)?.nome;
-        this.loadCities();
-        const cityName = this.cities.find(x => x.id === parseInt(cep.ibge, 10))?.nome;
+        this.loadCities().then(() => {
+          const cityName = this.cities.find(x => x.id === parseInt(cep.ibge, 10))?.nome;
+        });
       }
     });
   }
 
-  public loadCities(): void {
-    this.localityService.getAllCitiesByStateId(33).subscribe(cities => {
-      this.cities = cities;
-    });
+  public async loadCities(): Promise<void> {
+    this.cities = await this.localityService.getAllCitiesByStateId(42).toPromise();
   }
 
   private loadStates(): void {
