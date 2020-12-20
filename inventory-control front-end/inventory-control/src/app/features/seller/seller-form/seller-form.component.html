@@ -1,86 +1,88 @@
 <div class="card">
-  <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-2">
-      <label for="cpf">CPF</label>
-      <p-inputMask id="cpf" mask="999.999.999-99" type="text"></p-inputMask>
+  <form [formGroup]="sellerForm" >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-2">
+        <label for="cpf">CPF</label>
+        <p-inputMask formControlName="cpf" id="cpf" mask="999.999.999-99" type="text"></p-inputMask>
+      </div>
     </div>
-  </div>
-  <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-6">
-      <label for="name">Nome</label>
-      <input id="name" type="text" pInputText>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <label for="name">Nome</label>
+        <input formControlName="name" id="name" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="email">Email</label>
+        <input formControlName="email" id="email" type="email" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="cellphone">Telefone celular</label>
+        <p-inputMask formControlName="cellphone" id="cellphone" type="text" mask="(99) 99999-9999"></p-inputMask>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="alternativePhone">Telefone alterantivo</label>
+        <p-inputMask formControlName="alternativePhone" id="alternativePhone" mask="(99) 9999-9999?9" type="text"></p-inputMask>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="dateOfBirth">Data de nascimento</label>
+        <p-calendar formControlName="dateOfBirth" dateFormat="dd/mm/yy" inputId="dateOfBirth"></p-calendar>
+      </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-4">
+        <label for="cep">CEP</label>
+        <p-inputMask formControlName="cep" (onBlur)="findCep()" mask="99999-999" id="cep" type="text"></p-inputMask>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="state">Estado</label>
+        <p-autoComplete id="state" (onSelect)="loadCities()" [suggestions]="filteredStates" formControlName="state"
+                        (completeMethod)="filterState($event)" field="state" [dropdown]="true" [forceSelection]="true">
+          <ng-template let-state pTemplate="item">
+            <div class="country-item">
+              <div>{{state.nome}}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="city">Cidade</label>
+        <p-autoComplete id="city" [suggestions]="filteredCities" formControlName="city"
+                        (completeMethod)="filterCity($event)" field="state" [dropdown]="true" [forceSelection]="true">
+          <ng-template let-city pTemplate="item">
+            <div class="country-item">
+              <div>{{city.nome}}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
     </div>
 
-    <div class="p-field p-col-12 p-md-6">
-      <label for="email">Email</label>
-      <input id="email" type="email" pInputText>
-    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-10">
+        <label for="street">Logradouro</label>
+        <input formControlName="street" id="street" type="text" pInputText>
+      </div>
 
-    <div class="p-field p-col-12 p-md-4">
-      <label for="cellphone">Telefone celular</label>
-      <p-inputMask id="cellphone" type="text" mask="(99) 99999-9999"></p-inputMask>
-    </div>
+      <div class="p-field p-col-12 p-md-2">
+        <label for="number">Numero</label>
+        <input formControlName="number" id="number" type="text" pInputText>
+      </div>
 
-    <div class="p-field p-col-12 p-md-4">
-      <label for="alternativePhone">Telefone alterantivo</label>
-      <p-inputMask id="alternativePhone" mask="(99) 9999-9999?9" type="text"></p-inputMask>
-    </div>
+      <div class="p-field p-col-12 p-md-4">
+        <label for="neighborhood">Bairro</label>
+        <input formControlName="neighborhood" id="neighborhood" type="text" pInputText>
+      </div>
 
-    <div class="p-field p-col-12 p-md-4">
-      <label for="dateOfBirth">Data de nascimento</label>
-      <p-calendar dateFormat="dd/mm/yy"  inputId="dateOfBirth"></p-calendar>
+      <div class="p-field p-col-12 p-md-4">
+        <label for="complement">Complemento</label>
+        <input formControlName="complement" id="complement" type="text" pInputText>
+      </div>
     </div>
-  </div>
-  <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-4">
-      <label for="cep">CEP</label>
-      <p-inputMask (onBlur)="findCep()" mask="99999-999" id="cep" type="text"></p-inputMask>
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label for="state">Estado</label>
-      <p-autoComplete id="state" (onSelect)="loadCities()" [suggestions]="filteredStates"
-                      (completeMethod)="filterState($event)" field="state" [dropdown]="true" [forceSelection]="true" >
-        <ng-template let-state pTemplate="item">
-          <div class="country-item">
-            <div>{{state.nome}}</div>
-          </div>
-        </ng-template>
-      </p-autoComplete>
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label for="city">Cidade</label>
-      <p-autoComplete id="city"  [suggestions]="filteredCities"
-                      (completeMethod)="filterCity($event)" field="state" [dropdown]="true" [forceSelection]="true" >
-        <ng-template let-city pTemplate="item">
-          <div class="country-item">
-            <div>{{city.nome}}</div>
-          </div>
-        </ng-template>
-      </p-autoComplete>
-    </div>
-  </div>
-
-  <div class="p-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-10">
-      <label for="street">Logradouro</label>
-      <input id="street" type="text" pInputText>
-    </div>
-
-    <div class="p-field p-col-12 p-md-2">
-      <label for="number">Numero</label>
-      <input id="number" type="text" pInputText>
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label for="neighborhood">Bairro</label>
-      <input id="neighborhood" type="text" pInputText>
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label for="complement">Complemento</label>
-      <input id="complement" type="text" pInputText>
-    </div>
-  </div>
+  </form>
 </div>

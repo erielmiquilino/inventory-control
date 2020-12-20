@@ -3,7 +3,7 @@ import {LocalityService} from '../../shared/locality/locality.service';
 import {State} from '../../shared/locality/model/State';
 import {City} from '../../shared/locality/model/city';
 import {CepService} from '../../shared/cep/cep.service';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-seller-form',
@@ -19,13 +19,28 @@ export class SellerFormComponent implements OnInit {
   public cities: City[] = [];
   public filteredCities: City[] = [];
 
+  public sellerForm!: FormGroup;
+
   ngOnInit(): void {
     this.loadStates();
+    this.initializeFormGroup();
   }
 
   initializeFormGroup(): void {
-    const sellerForm = new FormGroup({
-
+    this.sellerForm = new FormGroup({
+      cpf: new FormControl(''),
+      name: new FormControl(''),
+      cellphone: new FormControl(''),
+      alternativePhone: new FormControl(''),
+      email: new FormControl(''),
+      dateOfBirth: new FormControl(''),
+      street: new FormControl(''),
+      number: new FormControl(''),
+      neighborhood: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      cep: new FormControl(''),
+      complement: new FormControl('')
     });
   }
 
