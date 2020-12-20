@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LocalityService} from '../../shared/locality/locality.service';
 import {State} from '../../shared/locality/model/State';
 import {City} from '../../shared/locality/model/city';
 import {CepService} from '../../shared/cep/cep.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Cep} from '../../shared/cep/model/cep';
 
 @Component({
   selector: 'app-seller-form',
@@ -12,7 +13,11 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class SellerFormComponent implements OnInit {
 
-  constructor(private localityService: LocalityService, private cepService: CepService) { }
+  @ViewChild('number') numberElementRef!: ElementRef;
+
+  constructor(private localityService: LocalityService,
+              private cepService: CepService,
+              private formBuilder: FormBuilder) { }
 
   public states!: State[];
   public filteredStates!: State[];
@@ -27,24 +32,24 @@ export class SellerFormComponent implements OnInit {
   }
 
   initializeFormGroup(): void {
-    this.sellerForm = new FormGroup({
-      cpf: new FormControl(''),
-      name: new FormControl(''),
-      cellphone: new FormControl(''),
-      alternativePhone: new FormControl(''),
-      email: new FormControl(''),
-      dateOfBirth: new FormControl(''),
-      street: new FormControl(''),
-      number: new FormControl(''),
-      neighborhood: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      cep: new FormControl(''),
-      complement: new FormControl('')
+    this.sellerForm = this.formBuilder.group({
+      cpf: ['', Validators.required],
+      name: ['', Validators.required],
+      cellphone: ['', Validators.required],
+      alternativePhone: [''],
+      email: ['', Validators.email],
+      dateOfBirth: [''],
+      street: ['', Validators.required],
+      number: ['', Validators.required],
+      neighborhood: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      cep: ['', Validators.required],
+      complement: ['', Validators.required]
     });
   }
 
-  public filterState(event: any): void {
+  filterState(event: any): void {
     const filtered: State[] = [];
     const query = event.query;
     for (const state of this.states) {
@@ -55,7 +60,7 @@ export class SellerFormComponent implements OnInit {
     this.filteredStates = filtered;
   }
 
-  public filterCity(event: any): void {
+  filterCity(event: any): void {
     const filtered: City[] = [];
     const query = event.query;
     for (const city of this.cities) {
@@ -66,25 +71,49 @@ export class SellerFormComponent implements OnInit {
     this.filteredCities = filtered;
   }
 
-  public findCep(): void {
-    this.cepService.getAddressByCep('88501030').subscribe(cep => {
-      if (cep.uf && cep.ibge) {
-        const stateName = this.states.find(x => x.sigla === cep.uf)?.nome;
-        this.loadCities().then(() => {
-          const cityName = this.cities.find(x => x.id === parseInt(cep.ibge, 10))?.nome;
-        });
-      }
-    });
+  findCep(): void {
+    if (this.sellerForm.get('cep')?.value.length === 8){
+      this.cepService.getAddressByCep(this.sellerForm.get('cep')?.value).subscribe(cep => {
+        if (cep.uf && cep.ibge) {
+          const state = this.states.find(x => x.sigla === cep.uf);
+          this.sellerForm.get('state')?.setValue(state);
+          this.loadCities().then(() => {
+            const city = this.cities.find(x => x.id === parseInt(cep.ibge, 10));
+            this.updateFormByCep(city, cep);
+            this.numberElementRef.nativeElement.focus();
+          });
+        }
+      });
+    }
   }
 
-  public async loadCities(): Promise<void> {
-    this.cities = await this.localityService.getAllCitiesByStateId(42).toPromise();
+  async loadCities(): Promise<void> {
+    const selectedState = this.sellerForm.get('state')?.value;
+    if (selectedState){
+      this.cities = await this.localityService.getAllCitiesByStateId(selectedState.id).toPromise();
+    }
   }
 
-  private loadStates(): void {
+  loadStates(): void {
     this.localityService.getAllStates().subscribe(states => {
       this.states = states;
     });
   }
 
+  validate(field: string, validation: string): boolean {
+    return (this.sellerForm.get(field)?.hasError(validation) ?? false)
+      && (this.sellerForm.get(field)?.dirty ?? false);
+  }
+
+  submit(): void {
+
+  }
+
+  private updateFormByCep(city: City | undefined, cep: Cep): void {
+    this.sellerForm.patchValue({
+      city,
+      street: cep.logradouro,
+      neighborhood: cep.bairro
+    });
+  }
 }

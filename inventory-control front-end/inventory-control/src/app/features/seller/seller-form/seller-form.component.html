@@ -1,25 +1,33 @@
 <div class="card">
-  <form [formGroup]="sellerForm" >
+  <form [formGroup]="sellerForm" (ngSubmit)="submit()" >
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col-12 p-md-2">
         <label for="cpf">CPF</label>
-        <p-inputMask formControlName="cpf" id="cpf" mask="999.999.999-99" type="text"></p-inputMask>
+        <p-inputMask aria-describedby="cpf-validation"  formControlName="cpf" id="cpf" mask="999.999.999-99" type="text"></p-inputMask>
+        <small id="cpf-validation"  *ngIf="validate('cpf', 'required')"
+               class="p-invalid">O CPF é obrigatório</small>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col-12 p-md-6">
         <label for="name">Nome</label>
-        <input formControlName="name" id="name" type="text" pInputText>
+        <input formControlName="name" aria-describedby="name-validation" id="name" type="text" pInputText>
+        <small id="name-validation"  *ngIf="validate('name', 'required')"
+               class="p-invalid">O Nome é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-6">
         <label for="email">Email</label>
-        <input formControlName="email" id="email" type="email" pInputText>
+        <input formControlName="email" aria-describedby="email-validation" id="email" type="email" pInputText>
+        <small id="email-validation"  *ngIf="validate('email', 'email')"
+               class="p-invalid">O Email esta incorreto</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
         <label for="cellphone">Telefone celular</label>
-        <p-inputMask formControlName="cellphone" id="cellphone" type="text" mask="(99) 99999-9999"></p-inputMask>
+        <p-inputMask formControlName="cellphone" id="cellphone" aria-describedby="cellphone-validation" type="text" mask="(99) 99999-9999"></p-inputMask>
+        <small id="cellphone-validation"  *ngIf="validate('cellphone', 'required')"
+               class="p-invalid">O Telefone celular é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
@@ -35,31 +43,33 @@
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-col-12 p-md-4">
         <label for="cep">CEP</label>
-        <p-inputMask formControlName="cep" (onBlur)="findCep()" mask="99999-999" id="cep" type="text"></p-inputMask>
+        <p-inputMask [unmask]="true" formControlName="cep" aria-describedby="cep-validation" (onBlur)="findCep()" mask="99999-999" id="cep" type="text"></p-inputMask>
+        <small id="cep-validation"  *ngIf="validate('cep', 'required')"
+               class="p-invalid">O CEP é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
         <label for="state">Estado</label>
         <p-autoComplete id="state" (onSelect)="loadCities()" [suggestions]="filteredStates" formControlName="state"
-                        (completeMethod)="filterState($event)" field="state" [dropdown]="true" [forceSelection]="true">
+                        (completeMethod)="filterState($event)" field="nome" [dropdown]="true" [forceSelection]="true">
           <ng-template let-state pTemplate="item">
-            <div class="country-item">
               <div>{{state.nome}}</div>
-            </div>
           </ng-template>
         </p-autoComplete>
+        <small id="state-validation"  *ngIf="validate('state', 'required')"
+               class="p-invalid">O Estado é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
         <label for="city">Cidade</label>
         <p-autoComplete id="city" [suggestions]="filteredCities" formControlName="city"
-                        (completeMethod)="filterCity($event)" field="state" [dropdown]="true" [forceSelection]="true">
+                        (completeMethod)="filterCity($event)" field="nome" [dropdown]="true" [forceSelection]="true">
           <ng-template let-city pTemplate="item">
-            <div class="country-item">
               <div>{{city.nome}}</div>
-            </div>
           </ng-template>
         </p-autoComplete>
+        <small id="city-validation"  *ngIf="validate('city', 'required')"
+               class="p-invalid">A Cidade é obrigatório</small>
       </div>
     </div>
 
@@ -67,21 +77,29 @@
       <div class="p-field p-col-12 p-md-10">
         <label for="street">Logradouro</label>
         <input formControlName="street" id="street" type="text" pInputText>
+        <small id="street-validation"  *ngIf="validate('street', 'required')"
+               class="p-invalid">O Logradouro é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-2">
         <label for="number">Numero</label>
-        <input formControlName="number" id="number" type="text" pInputText>
+        <input #number formControlName="number" id="number" type="text" pInputText>
+        <small id="number-validation"  *ngIf="validate('number', 'required')"
+               class="p-invalid">O Numero é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
         <label for="neighborhood">Bairro</label>
         <input formControlName="neighborhood" id="neighborhood" type="text" pInputText>
+        <small id="neighborhood-validation"  *ngIf="validate('neighborhood', 'required')"
+               class="p-invalid">O Bairro é obrigatório</small>
       </div>
 
       <div class="p-field p-col-12 p-md-4">
         <label for="complement">Complemento</label>
         <input formControlName="complement" id="complement" type="text" pInputText>
+        <small id="complement-validation"  *ngIf="validate('complement', 'required')"
+               class="p-invalid">O Complemento é obrigatório</small>
       </div>
     </div>
   </form>
