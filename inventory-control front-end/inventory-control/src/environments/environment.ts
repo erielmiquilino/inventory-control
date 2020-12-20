@@ -1,5 +1,6 @@
 export const environment = {
   locality: 'https://servicodados.ibge.gov.br/api/v1/localidades',
-  apiViaCep: 'https://viacep.com.br/ws',
+  viaCep: 'https://viacep.com.br/ws',
+  application: 'http://localhost:8080',
   production: false
 };

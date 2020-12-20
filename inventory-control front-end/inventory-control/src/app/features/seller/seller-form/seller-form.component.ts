@@ -5,6 +5,7 @@ import {City} from '../../shared/locality/model/city';
 import {CepService} from '../../shared/cep/cep.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cep} from '../../shared/cep/model/cep';
+import {SellerService} from '../seller.service';
 
 @Component({
   selector: 'app-seller-form',
@@ -17,6 +18,7 @@ export class SellerFormComponent implements OnInit {
 
   constructor(private localityService: LocalityService,
               private cepService: CepService,
+              private sellerService: SellerService,
               private formBuilder: FormBuilder) { }
 
   public states!: State[];
@@ -106,7 +108,13 @@ export class SellerFormComponent implements OnInit {
   }
 
   submit(): void {
+    const seller = this.sellerForm.value;
+    seller.state = this.sellerForm.get('state')?.value.sigla;
+    seller.city = this.sellerForm.get('city')?.value.nome;
 
+    this.sellerService.saveSeller(seller).subscribe(result => {
+      if (result) { this.sellerForm.reset(); }
+    });
   }
 
   private updateFormByCep(city: City | undefined, cep: Cep): void {
@@ -117,3 +125,4 @@ export class SellerFormComponent implements OnInit {
     });
   }
 }
+

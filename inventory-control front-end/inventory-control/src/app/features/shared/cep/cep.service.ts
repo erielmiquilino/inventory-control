@@ -12,6 +12,6 @@ export class CepService {
   constructor(private http: HttpClient) { }
 
   public getAddressByCep(cep: string): Observable<Cep> {
-    return this.http.get<Cep>(`${environment.apiViaCep}/${cep}/json`);
+    return this.http.get<Cep>(`${environment.viaCep}/${cep}/json`);
   }
 }
