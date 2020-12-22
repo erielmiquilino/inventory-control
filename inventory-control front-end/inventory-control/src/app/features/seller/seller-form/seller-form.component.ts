@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cep} from '../../shared/cep/model/cep';
 import {SellerService} from '../seller.service';
 import {MessageService} from 'primeng/api';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-seller-form',
@@ -21,6 +22,7 @@ export class SellerFormComponent implements OnInit {
               private cepService: CepService,
               private sellerService: SellerService,
               private messageService: MessageService,
+              private router: Router,
               private formBuilder: FormBuilder) { }
 
   public states!: State[];
@@ -122,6 +124,8 @@ export class SellerFormComponent implements OnInit {
           detail: 'O Vendedor foi cadatrado.'
         });
         this.sellerForm.reset();
+        this.router.navigate(['/sellers'])
+          .catch(p => console.log(p));
       } else {
         this.messageService.add({
           severity: 'warn',

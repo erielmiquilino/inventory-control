@@ -48,7 +48,8 @@ registerLocaleData(ptBr);
     RippleModule,
     ToastModule,
     CardModule,
-    TableModule
+    TableModule,
+    AppRoutingModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

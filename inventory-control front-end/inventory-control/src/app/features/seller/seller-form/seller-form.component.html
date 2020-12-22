@@ -112,14 +112,14 @@
   </form>
 </p-card>
 <br/>
-<p-card>
+<p-card id="buttons">
   <div class="p-d-flex">
     <div class="p-mr-2">
       <button label="Salvar" (click)="submit()" pButton pRipple [disabled]="!sellerForm.valid"
               icon="pi pi-check" class="p-button-success" iconPos="right"></button>
     </div>
     <div class="p-mr-2">
-      <button label="Cancelar" pButton pRipple icon="pi pi-times" class="p-button-danger" iconPos="right"></button>
+      <button routerLink="/sellers" label="Cancelar" pButton pRipple icon="pi pi-times" class="p-button-danger" iconPos="right"></button>
     </div>
   </div>
 </p-card>

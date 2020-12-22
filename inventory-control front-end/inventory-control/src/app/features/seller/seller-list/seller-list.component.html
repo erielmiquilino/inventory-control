@@ -1,3 +1,7 @@
+<p-card id="buttons">
+    <button routerLink="/sellers/new" pButton  pRipple type="button" icon="pi pi-plus" iconPos="right" label="Adicionar"></button>
+</p-card>
+<br/>
 <p-card>
   <p-table [value]="sellers">
     <ng-template pTemplate="header">
@@ -6,6 +10,7 @@
         <th>Cidade\UF</th>
         <th>CPF</th>
         <th>Celular</th>
+        <th>Ações</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-seller >
@@ -14,6 +19,12 @@
         <td>{{seller.city}}\{{seller.state}}</td>
         <td>{{seller.cpf}}</td>
         <td>{{seller.cellphone}}</td>
+        <td>
+          <div class="p-d-flex">
+            <p-button class="p-mr-2" icon="pi pi-pencil"></p-button>
+            <p-button class="p-mr-2" icon="pi pi-trash"></p-button>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>
