@@ -30,7 +30,7 @@ public class SellerController {
 
     @GetMapping
     public ResponseEntity<List<SellerViewModel>> getAllSellers() {
-        return sellerService.getAll();
+        return ResponseEntity.ok(sellerService.getAll());
     }
 
 }

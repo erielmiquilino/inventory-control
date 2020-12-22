@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Seller} from '../model/seller';
+import {SellerService} from '../seller.service';
 
 @Component({
   selector: 'app-seller-list',
@@ -10,9 +11,15 @@ export class SellerListComponent implements OnInit {
 
   public sellers!: Seller[];
 
-  constructor() { }
+  constructor(private sellerService: SellerService) { }
 
   ngOnInit(): void {
+    this.loadSellers();
   }
 
+  private loadSellers(): void {
+    this.sellerService.getAllSellers().subscribe(sellers => {
+      this.sellers = sellers;
+    });
+  }
 }

@@ -14,4 +14,8 @@ export class SellerService {
   public saveSeller(seller: Seller): Observable<any> {
     return this.http.post(`${environment.application}/seller`, seller);
   }
+
+  public getAllSellers(): Observable<Seller[]> {
+    return this.http.get<Seller[]>(`${environment.application}/seller`);
+  }
 }
