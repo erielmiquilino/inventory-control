@@ -20,13 +20,18 @@ import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {CardModule} from 'primeng/card';
 import {SellerService} from './features/seller/seller.service';
+import { SellerListComponent } from './features/seller/seller-list/seller-list.component';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {TableModule} from 'primeng/table';
 
 registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
     AppComponent,
-    SellerFormComponent
+    SellerFormComponent,
+    SellerListComponent
   ],
   imports: [
     BrowserModule,
@@ -41,13 +46,16 @@ registerLocaleData(ptBr);
     ButtonModule,
     HttpClientModule,
     RippleModule,
-    CardModule
+    ToastModule,
+    CardModule,
+    TableModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
     LocalityService,
     CepService,
-    SellerService
+    SellerService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

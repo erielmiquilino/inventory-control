@@ -6,6 +6,7 @@ import {CepService} from '../../shared/cep/cep.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cep} from '../../shared/cep/model/cep';
 import {SellerService} from '../seller.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-seller-form',
@@ -19,6 +20,7 @@ export class SellerFormComponent implements OnInit {
   constructor(private localityService: LocalityService,
               private cepService: CepService,
               private sellerService: SellerService,
+              private messageService: MessageService,
               private formBuilder: FormBuilder) { }
 
   public states!: State[];
@@ -113,7 +115,20 @@ export class SellerFormComponent implements OnInit {
     seller.city = this.sellerForm.get('city')?.value.nome;
 
     this.sellerService.saveSeller(seller).subscribe(result => {
-      if (result) { this.sellerForm.reset(); }
+      if (result) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'O Vendedor foi cadatrado.'
+        });
+        this.sellerForm.reset();
+      } else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Erro',
+          detail: 'Não foi possível salvar os dados do vendedor'
+        });
+      }
     });
   }
 
