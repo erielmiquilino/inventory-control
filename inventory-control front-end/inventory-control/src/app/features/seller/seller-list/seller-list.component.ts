@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Seller} from '../model/seller';
+import {SellerViewModel} from '../model/sellerViewModel';
 import {SellerService} from '../seller.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-seller-list',
@@ -10,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class SellerListComponent implements OnInit {
 
-  public sellers!: Seller[];
+  public sellers!: SellerViewModel[];
 
   constructor(private sellerService: SellerService) { }
 

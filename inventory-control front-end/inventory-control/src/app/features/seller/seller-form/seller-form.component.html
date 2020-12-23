@@ -4,9 +4,11 @@
       <div class="p-field p-col-12 p-md-2">
         <label for="cpf">CPF</label>
         <p-inputMask [unmask]="true" aria-describedby="cpf-validation" formControlName="cpf" id="cpf" mask="999.999.999-99"
-                     type="text"></p-inputMask>
+                     type="text" (onBlur)="validateCpfValue()" ></p-inputMask>
         <small id="cpf-validation" *ngIf="validate('cpf', 'required')"
                class="p-invalid">O CPF é obrigatório</small>
+        <small id="cpf-validation" *ngIf="validationCpfResult"
+               class="p-invalid">{{validationCpfResult}}</small>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -123,5 +125,3 @@
     </div>
   </div>
 </p-card>
-
-<p-toast position="top-right"></p-toast>

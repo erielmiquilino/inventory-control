@@ -29,6 +29,7 @@ export class SellerFormComponent implements OnInit {
   public filteredStates!: State[];
   public cities: City[] = [];
   public filteredCities: City[] = [];
+  public validationCpfResult!: string;
 
   public sellerForm!: FormGroup;
 
@@ -134,6 +135,16 @@ export class SellerFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  validateCpfValue(): void {
+    if (this.sellerForm.value.cpf && this.sellerForm.get('cpf')?.valid) {
+      this.sellerService.verifyExistenceOf(this.sellerForm.value.cpf).subscribe(result => {
+          if (result) {
+            this.validationCpfResult = result;
+          }
+        });
+    }
   }
 
   private updateFormByCep(city: City | undefined, cep: Cep): void {
