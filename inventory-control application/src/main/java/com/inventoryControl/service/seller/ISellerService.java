@@ -12,4 +12,6 @@ public interface ISellerService {
     Seller saveSeller(SellerModel sellerModel);
 
     List<SellerViewModel> getAll();
+
+    String verifyExistenceOfCpf(String cpf);
 }

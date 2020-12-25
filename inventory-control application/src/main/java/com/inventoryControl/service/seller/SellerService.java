@@ -35,4 +35,11 @@ public class SellerService implements ISellerService{
                 .map(seller -> modelMapper.map(seller, SellerViewModel.class))
                 .collect(Collectors.toList());
     }
+
+    public String verifyExistenceOfCpf(String cpf) {
+        var hasCpf = sellerRepository.existsByCpf(cpf);
+        if (hasCpf)
+            return "O CPF informado já existe na base de dados";
+        return "";
+    }
 }

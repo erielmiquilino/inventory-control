@@ -3,14 +3,11 @@ package com.inventoryControl.controllers.seller;
 import com.inventoryControl.domain.Seller;
 import com.inventoryControl.service.seller.ISellerService;
 import io.swagger.annotations.Api;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/seller")
@@ -31,6 +28,11 @@ public class SellerController {
     @GetMapping
     public ResponseEntity<List<SellerViewModel>> getAllSellers() {
         return ResponseEntity.ok(sellerService.getAll());
+    }
+
+    @GetMapping("verifyExistenceOf/{cpf}")
+    public ResponseEntity<String> verifyExistenceOfCpf(@PathVariable String cpf) {
+        return ResponseEntity.ok(sellerService.verifyExistenceOfCpf(cpf));
     }
 
 }
