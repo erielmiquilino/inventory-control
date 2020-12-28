@@ -8,6 +8,7 @@ import {Cep} from '../../shared/cep/model/cep';
 import {SellerService} from '../seller.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
+import {CpfValidatorService} from '../../shared/cpf-validator.service';
 
 @Component({
   selector: 'app-seller-form',
@@ -23,6 +24,7 @@ export class SellerFormComponent implements OnInit {
               private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
+              private cpfValidator: CpfValidatorService,
               private formBuilder: FormBuilder) { }
 
   public states!: State[];
@@ -40,7 +42,7 @@ export class SellerFormComponent implements OnInit {
 
   initializeFormGroup(): void {
     this.sellerForm = this.formBuilder.group({
-      cpf: ['', Validators.required],
+      cpf: ['', { validators: [Validators.required], asyncValidators: [this.cpfValidator] , updateOn: 'blur' }],
       name: ['', Validators.required],
       cellphone: ['', Validators.required],
       alternativePhone: [''],
@@ -139,11 +141,7 @@ export class SellerFormComponent implements OnInit {
 
   validateCpfValue(): void {
     if (this.sellerForm.value.cpf && this.sellerForm.get('cpf')?.valid) {
-      this.sellerService.verifyExistenceOf(this.sellerForm.value.cpf).subscribe(result => {
-          if (result) {
-            this.validationCpfResult = result;
-          }
-        });
+
     }
   }
 
@@ -155,4 +153,8 @@ export class SellerFormComponent implements OnInit {
     });
   }
 }
+
+
+
+
 

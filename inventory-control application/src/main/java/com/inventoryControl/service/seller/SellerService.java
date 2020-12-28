@@ -36,10 +36,7 @@ public class SellerService implements ISellerService{
                 .collect(Collectors.toList());
     }
 
-    public String verifyExistenceOfCpf(String cpf) {
-        var hasCpf = sellerRepository.existsByCpf(cpf);
-        if (hasCpf)
-            return "O CPF informado já existe na base de dados";
-        return "";
+    public boolean verifyExistenceOfCpf(String cpf) {
+        return sellerRepository.existsByCpf(cpf);
     }
 }

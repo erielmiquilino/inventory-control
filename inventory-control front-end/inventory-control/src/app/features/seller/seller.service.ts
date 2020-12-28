@@ -20,6 +20,6 @@ export class SellerService {
   }
 
   public verifyExistenceOf(cpf: string): Observable<any> {
-    return this.http.get(`${environment.application}/seller/verifyExistenceOf/${cpf}`, {responseType: 'text'});
+    return this.http.get(`${environment.application}/seller/verifyExistenceOf/${cpf}`);
   }
 }

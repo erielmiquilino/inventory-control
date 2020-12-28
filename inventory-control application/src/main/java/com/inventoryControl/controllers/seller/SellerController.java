@@ -31,7 +31,7 @@ public class SellerController {
     }
 
     @GetMapping("verifyExistenceOf/{cpf}")
-    public ResponseEntity<String> verifyExistenceOfCpf(@PathVariable String cpf) {
+    public ResponseEntity<Boolean> verifyExistenceOfCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(sellerService.verifyExistenceOfCpf(cpf));
     }
 

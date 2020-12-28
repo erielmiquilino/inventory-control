@@ -13,5 +13,5 @@ public interface ISellerService {
 
     List<SellerViewModel> getAll();
 
-    String verifyExistenceOfCpf(String cpf);
+    boolean verifyExistenceOfCpf(String cpf);
 }

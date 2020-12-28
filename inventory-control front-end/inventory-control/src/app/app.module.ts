@@ -24,6 +24,7 @@ import { SellerListComponent } from './features/seller/seller-list/seller-list.c
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {TableModule} from 'primeng/table';
+import { CpfValidatorService } from './features/shared/cpf-validator.service';
 
 registerLocaleData(ptBr);
 
@@ -31,7 +32,7 @@ registerLocaleData(ptBr);
   declarations: [
     AppComponent,
     SellerFormComponent,
-    SellerListComponent
+    SellerListComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ registerLocaleData(ptBr);
     LocalityService,
     CepService,
     SellerService,
-    MessageService
+    MessageService,
+    CpfValidatorService
   ],
   bootstrap: [AppComponent]
 })
