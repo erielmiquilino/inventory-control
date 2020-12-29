@@ -7,8 +7,10 @@
                      type="text" (onBlur)="validateCpfValue()" ></p-inputMask>
         <small id="cpf-forms-validation" *ngIf="validate('cpf', 'required')"
                class="p-invalid">O CPF é obrigatório</small>
-        <small id="cpf-value-validation" *ngIf="validate('cpf', 'cpfExist')"
+        <small id="cpf-exists-validation" *ngIf="validate('cpf', 'cpfExist')"
                class="p-invalid">O CPF já existe no banco de dados</small>
+        <small id="cpf-value-validation" *ngIf="validate('cpf', 'cpfInvalid')"
+               class="p-invalid">O CPF informado é inválido</small>
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
