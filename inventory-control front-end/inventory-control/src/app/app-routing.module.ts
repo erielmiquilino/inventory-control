@@ -13,6 +13,10 @@ const routes: Routes = [
     component: SellerFormComponent
   },
   {
+    path: 'sellers/edit/:id',
+    component: SellerFormComponent
+  },
+  {
     path: '',
     redirectTo: '/sellers',
     pathMatch: 'full',

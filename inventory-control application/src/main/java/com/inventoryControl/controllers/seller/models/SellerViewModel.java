@@ -1,4 +1,4 @@
-package com.inventoryControl.controllers.seller;
+package com.inventoryControl.controllers.seller.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SellerViewModel {
+
+    private String id;
 
     private String name;
 

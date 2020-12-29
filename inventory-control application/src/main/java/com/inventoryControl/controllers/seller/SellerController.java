@@ -1,5 +1,7 @@
 package com.inventoryControl.controllers.seller;
 
+import com.inventoryControl.controllers.seller.models.SellerModel;
+import com.inventoryControl.controllers.seller.models.SellerViewModel;
 import com.inventoryControl.domain.Seller;
 import com.inventoryControl.service.seller.ISellerService;
 import io.swagger.annotations.Api;
@@ -33,6 +35,11 @@ public class SellerController {
     @GetMapping("verifyExistenceOf/{cpf}")
     public ResponseEntity<Boolean> verifyExistenceOfCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(sellerService.verifyExistenceOfCpf(cpf));
+    }
+
+    @GetMapping("getById/{id}")
+    public ResponseEntity<SellerModel> getSellerById(@PathVariable String id) {
+        return ResponseEntity.ok(sellerService.getSellerById(id));
     }
 
 }

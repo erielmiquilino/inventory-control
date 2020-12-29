@@ -1,5 +1,6 @@
-package com.inventoryControl.controllers.seller;
+package com.inventoryControl.controllers.seller.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class SellerModel {
+
+    private String id;
 
     private String cpf;
 
@@ -19,6 +22,7 @@ public class SellerModel {
 
     private String email;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
     private String street;

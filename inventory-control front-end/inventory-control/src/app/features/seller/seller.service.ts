@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {SellerViewModel} from './model/sellerViewModel';
+import {SellerModel} from './model/SellerModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,13 @@ export class SellerService {
 
   public verifyExistenceOf(cpf: string): Observable<any> {
     return this.http.get(`${environment.application}/seller/verifyExistenceOf/${cpf}`);
+  }
+
+  public getSellerById(sellerId: string): Observable<SellerModel> {
+    return this.http.get<SellerModel>(`${environment.application}/seller/getById/${sellerId}`);
+  }
+
+  public putSeller(seller: any): Observable<any> {
+    return this.http.put(`${environment.application}/seller`, seller);
   }
 }

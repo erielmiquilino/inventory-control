@@ -7,8 +7,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cep} from '../../shared/cep/model/cep';
 import {SellerService} from '../seller.service';
 import {MessageService} from 'primeng/api';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CpfValidatorService} from '../../shared/cpf-validator.service';
+import {SellerModel} from '../model/SellerModel';
 
 @Component({
   selector: 'app-seller-form',
@@ -24,6 +25,7 @@ export class SellerFormComponent implements OnInit {
               private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
+              private route: ActivatedRoute,
               private cpfValidator: CpfValidatorService,
               private formBuilder: FormBuilder) { }
 
@@ -32,12 +34,32 @@ export class SellerFormComponent implements OnInit {
   public cities: City[] = [];
   public filteredCities: City[] = [];
   public validationCpfResult!: string;
-
+  public sellerEdit?: SellerModel;
   public sellerForm!: FormGroup;
 
   ngOnInit(): void {
     this.loadStates();
     this.initializeFormGroup();
+
+    const sellerId = this.route.snapshot.paramMap.get('id');
+    if (sellerId) {
+      this.loadSellerById(sellerId);
+    }
+  }
+
+  private loadSellerById(sellerId: string): void {
+    this.sellerService.getSellerById(sellerId).subscribe(seller => {
+      this.sellerEdit = seller;
+      this.cpfValidator.cpfEditing = seller.cpf;
+      const {id, ...sellerWithoutId} = seller;
+
+      sellerWithoutId.state = this.states.find(state => state.sigla === seller.state) ?? null;
+      this.sellerForm.setValue(sellerWithoutId);
+      this.loadCities().then(() => {
+        const city = this.cities.find(x => x.nome === seller.city);
+        this.sellerForm.patchValue({city});
+      });
+    });
   }
 
   initializeFormGroup(): void {
@@ -119,24 +141,44 @@ export class SellerFormComponent implements OnInit {
     seller.state = this.sellerForm.get('state')?.value.sigla;
     seller.city = this.sellerForm.get('city')?.value.nome;
 
-    this.sellerService.saveSeller(seller).subscribe(result => {
-      if (result) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'O Vendedor foi cadatrado.'
-        });
-        this.sellerForm.reset();
-        this.router.navigate(['/sellers'])
-          .catch(p => console.log(p));
-      } else {
-        this.messageService.add({
-          severity: 'warn',
-          summary: 'Erro',
-          detail: 'Não foi possível salvar os dados do vendedor'
-        });
-      }
+    if (this.sellerEdit) {
+      this.saveEditedSeller(seller);
+    } else {
+      this.saveNewSeller(seller);
+    }
+  }
+
+  private saveEditedSeller(seller: any): void {
+    seller.id = this.sellerEdit?.id;
+
+    this.sellerService.putSeller(seller).subscribe(result => {
+      this.validateInputResult(result, 'O Vendedor foi alterado.');
     });
+  }
+
+  private saveNewSeller(seller: any): void {
+    this.sellerService.saveSeller(seller).subscribe(result => {
+      this.validateInputResult(result, 'O Vendedor foi cadatrado.');
+    });
+  }
+
+  private validateInputResult(result: any, message: string): void {
+    if (result) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: message
+      });
+      this.sellerForm.reset();
+      this.router.navigate(['/sellers'])
+        .catch(p => console.log(p));
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Erro',
+        detail: 'Não foi possível salvar os dados do vendedor'
+      });
+    }
   }
 
   validateCpfValue(): void {
@@ -153,8 +195,3 @@ export class SellerFormComponent implements OnInit {
     });
   }
 }
-
-
-
-
-

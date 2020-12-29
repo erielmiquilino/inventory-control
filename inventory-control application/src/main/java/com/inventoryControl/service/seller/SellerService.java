@@ -1,7 +1,7 @@
 package com.inventoryControl.service.seller;
 
-import com.inventoryControl.controllers.seller.SellerModel;
-import com.inventoryControl.controllers.seller.SellerViewModel;
+import com.inventoryControl.controllers.seller.models.SellerModel;
+import com.inventoryControl.controllers.seller.models.SellerViewModel;
 import com.inventoryControl.domain.Address;
 import com.inventoryControl.domain.Seller;
 import com.inventoryControl.repository.SellerRepository;
@@ -38,5 +38,15 @@ public class SellerService implements ISellerService{
 
     public boolean verifyExistenceOfCpf(String cpf) {
         return sellerRepository.existsByCpf(cpf);
+    }
+
+    public SellerModel getSellerById(String id) {
+        var seller = sellerRepository.findById(id)
+                .orElseThrow();
+
+        var sellerModel = modelMapper.map(seller, SellerModel.class);
+        modelMapper.map(seller.getAddress(), sellerModel);
+
+        return sellerModel;
     }
 }

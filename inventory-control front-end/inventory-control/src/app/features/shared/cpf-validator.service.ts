@@ -7,6 +7,8 @@ import {catchError, map} from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class CpfValidatorService implements AsyncValidator {
 
+  public cpfEditing!: string;
+
   constructor(private sellerService: SellerService) { }
 
   static validateCpfValue(cpf: string): boolean {
@@ -63,6 +65,10 @@ export class CpfValidatorService implements AsyncValidator {
 
   validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     const cpf = control.value;
+
+    if (this.cpfEditing.length === 11 && this.cpfEditing === cpf) {
+      return of(null);
+    }
 
     if (cpf.length < 11) {
       return of(null);
