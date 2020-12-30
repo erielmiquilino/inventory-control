@@ -22,7 +22,7 @@ public class SellerController {
         this.sellerService = sellerService;
     }
 
-    @PostMapping
+    @PostMapping("save")
     public ResponseEntity<Seller> createSeller(@Validated @RequestBody SellerModel sellerModel) {
         return ResponseEntity.ok(sellerService.saveSeller(sellerModel));
     }
@@ -40,6 +40,11 @@ public class SellerController {
     @GetMapping("getById/{id}")
     public ResponseEntity<SellerModel> getSellerById(@PathVariable String id) {
         return ResponseEntity.ok(sellerService.getSellerById(id));
+    }
+
+    @PutMapping("update")
+    public ResponseEntity<Seller> updateSeller(@Validated @RequestBody SellerModel sellerModel) {
+        return ResponseEntity.ok(sellerService.updateSeller(sellerModel));
     }
 
 }

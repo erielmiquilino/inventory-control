@@ -49,4 +49,8 @@ public class SellerService implements ISellerService{
 
         return sellerModel;
     }
+
+    public Seller updateSeller(SellerModel sellerModel) {
+        return saveSeller(sellerModel);
+    }
 }

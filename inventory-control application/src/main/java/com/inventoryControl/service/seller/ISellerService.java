@@ -15,4 +15,6 @@ public interface ISellerService {
     boolean verifyExistenceOfCpf(String cpf);
 
     SellerModel getSellerById(String id);
+
+    Seller updateSeller(SellerModel sellerModel);
 }
