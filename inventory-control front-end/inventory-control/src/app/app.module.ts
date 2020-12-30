@@ -24,8 +24,10 @@ import { SellerListComponent } from './features/seller/seller-list/seller-list.c
 import {ToastModule} from 'primeng/toast';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {TableModule} from 'primeng/table';
-import { CpfValidatorService } from './features/shared/cpf-validator.service';
+import { CpfValidatorService } from './features/shared/cpf/validators/cpf-validator.service';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { CpfPipe } from './features/shared/cpf/pipe/cpf.pipe';
+import { CellphonePipe } from './features/shared/cellphone/cellphone.pipe';
 
 registerLocaleData(ptBr);
 
@@ -34,6 +36,8 @@ registerLocaleData(ptBr);
     AppComponent,
     SellerFormComponent,
     SellerListComponent,
+    CpfPipe,
+    CellphonePipe,
   ],
   imports: [
     BrowserModule,

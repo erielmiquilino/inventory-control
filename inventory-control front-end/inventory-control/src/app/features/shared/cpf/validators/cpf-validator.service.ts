@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidator, ValidationErrors} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {SellerService} from '../seller/seller.service';
+import {SellerService} from '../../../seller/seller.service';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })

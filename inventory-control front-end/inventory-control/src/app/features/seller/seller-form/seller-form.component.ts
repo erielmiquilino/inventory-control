@@ -8,7 +8,7 @@ import {Cep} from '../../shared/cep/model/cep';
 import {SellerService} from '../seller.service';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CpfValidatorService} from '../../shared/cpf-validator.service';
+import {CpfValidatorService} from '../../shared/cpf/validators/cpf-validator.service';
 import {SellerModel} from '../model/SellerModel';
 import {DateTime} from 'luxon';
 

@@ -17,8 +17,8 @@
       <tr>
         <td>{{seller.name}}</td>
         <td>{{seller.city}}\{{seller.state}}</td>
-        <td>{{seller.cpf}}</td>
-        <td>{{seller.cellphone}}</td>
+        <td>{{seller.cpf | cpf}}</td>
+        <td>{{seller.cellphone | cellphone}}</td>
         <td>
           <div class="p-d-flex">
             <p-button class="p-mr-2" [routerLink]="['/sellers/edit', seller.id]" icon="pi pi-pencil"></p-button>
