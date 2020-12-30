@@ -47,4 +47,8 @@ public class SellerController {
         return ResponseEntity.ok(sellerService.updateSeller(sellerModel));
     }
 
+    @DeleteMapping("delete/{id}")
+    public void deleteSeller(@PathVariable String id) {
+        sellerService.deleteSeller(id);
+    }
 }

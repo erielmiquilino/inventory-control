@@ -53,4 +53,8 @@ public class SellerService implements ISellerService{
     public Seller updateSeller(SellerModel sellerModel) {
         return saveSeller(sellerModel);
     }
+
+    public void deleteSeller(String id) {
+        sellerRepository.deleteById(id);
+    }
 }

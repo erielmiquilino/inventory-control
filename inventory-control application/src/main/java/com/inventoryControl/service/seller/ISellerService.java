@@ -17,4 +17,6 @@ public interface ISellerService {
     SellerModel getSellerById(String id);
 
     Seller updateSeller(SellerModel sellerModel);
+
+    void deleteSeller(String id);
 }
