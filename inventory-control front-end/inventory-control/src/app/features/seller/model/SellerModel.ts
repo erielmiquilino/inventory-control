@@ -7,7 +7,7 @@ export class SellerModel {
   cep!: string;
   city!: any;
   complement!: string;
-  dateOfBirth!: string;
+  dateOfBirth!: any;
   email!: string;
   neighborhood!: string;
   number!: string;

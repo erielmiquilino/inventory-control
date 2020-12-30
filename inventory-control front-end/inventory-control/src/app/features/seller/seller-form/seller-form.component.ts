@@ -10,6 +10,7 @@ import {MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CpfValidatorService} from '../../shared/cpf-validator.service';
 import {SellerModel} from '../model/SellerModel';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'app-seller-form',
@@ -54,10 +55,11 @@ export class SellerFormComponent implements OnInit {
       const {id, ...sellerWithoutId} = seller;
 
       sellerWithoutId.state = this.states.find(state => state.sigla === seller.state) ?? null;
+      sellerWithoutId.dateOfBirth = DateTime.fromISO(seller.dateOfBirth).toJSDate();
       this.sellerForm.setValue(sellerWithoutId);
       this.loadCities().then(() => {
         const city = this.cities.find(x => x.nome === seller.city);
-        this.sellerForm.patchValue({city});
+        this.sellerForm.patchValue({ city });
       });
     });
   }
@@ -140,6 +142,7 @@ export class SellerFormComponent implements OnInit {
     const seller = this.sellerForm.value;
     seller.state = this.sellerForm.get('state')?.value.sigla;
     seller.city = this.sellerForm.get('city')?.value.nome;
+    seller.dateOfBirth = DateTime.fromJSDate(this.sellerForm.get('dateOfBirth')?.value).toISODate();
 
     if (this.sellerEdit) {
       this.saveEditedSeller(seller);
@@ -150,7 +153,6 @@ export class SellerFormComponent implements OnInit {
 
   private saveEditedSeller(seller: any): void {
     seller.id = this.sellerEdit?.id;
-
     this.sellerService.putSeller(seller).subscribe(result => {
       this.validateInputResult(result, 'O Vendedor foi alterado.');
     });
@@ -178,12 +180,6 @@ export class SellerFormComponent implements OnInit {
         summary: 'Erro',
         detail: 'Não foi possível salvar os dados do vendedor'
       });
-    }
-  }
-
-  validateCpfValue(): void {
-    if (this.sellerForm.value.cpf && this.sellerForm.get('cpf')?.valid) {
-
     }
   }
 

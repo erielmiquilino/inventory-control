@@ -66,7 +66,7 @@ export class CpfValidatorService implements AsyncValidator {
   validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     const cpf = control.value;
 
-    if (this.cpfEditing.length === 11 && this.cpfEditing === cpf) {
+    if (this.cpfEditing != null && this.cpfEditing.length === 11 && this.cpfEditing === cpf) {
       return of(null);
     }
 

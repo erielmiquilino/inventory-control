@@ -13,7 +13,7 @@ export class SellerService {
   constructor(private http: HttpClient) { }
 
   public saveSeller(seller: any): Observable<any> {
-    return this.http.post(`${environment.application}/seller`, seller);
+    return this.http.post(`${environment.application}/seller/save`, seller);
   }
 
   public getAllSellers(): Observable<SellerViewModel[]> {
@@ -29,6 +29,6 @@ export class SellerService {
   }
 
   public putSeller(seller: any): Observable<any> {
-    return this.http.put(`${environment.application}/seller`, seller);
+    return this.http.put(`${environment.application}/seller/update`, seller);
   }
 }
