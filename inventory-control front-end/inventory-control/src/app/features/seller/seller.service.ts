@@ -31,4 +31,8 @@ export class SellerService {
   public putSeller(seller: any): Observable<any> {
     return this.http.put(`${environment.application}/seller/update`, seller);
   }
+
+  public deleteSeller(sellerId: string): Observable<any> {
+    return this.http.delete(`${environment.application}/seller/delete/${sellerId}`);
+  }
 }

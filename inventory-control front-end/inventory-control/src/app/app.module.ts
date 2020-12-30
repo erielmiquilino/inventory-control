@@ -22,9 +22,10 @@ import {CardModule} from 'primeng/card';
 import {SellerService} from './features/seller/seller.service';
 import { SellerListComponent } from './features/seller/seller-list/seller-list.component';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import { CpfValidatorService } from './features/shared/cpf-validator.service';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 registerLocaleData(ptBr);
 
@@ -50,6 +51,7 @@ registerLocaleData(ptBr);
     ToastModule,
     CardModule,
     TableModule,
+    ConfirmDialogModule,
     AppRoutingModule
   ],
   providers: [
@@ -58,7 +60,8 @@ registerLocaleData(ptBr);
     CepService,
     SellerService,
     MessageService,
-    CpfValidatorService
+    CpfValidatorService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -22,10 +22,14 @@
         <td>
           <div class="p-d-flex">
             <p-button class="p-mr-2" [routerLink]="['/sellers/edit', seller.id]" icon="pi pi-pencil"></p-button>
-            <p-button class="p-mr-2" icon="pi pi-trash"></p-button>
+            <p-button class="p-mr-2" (click)="confirmDelete(seller.id)" icon="pi pi-trash"></p-button>
           </div>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </p-card>
+
+<p-confirmDialog header="Confirmation" acceptLabel="Sim" rejectLabel="Não"
+                 icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
