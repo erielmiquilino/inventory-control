@@ -6,8 +6,12 @@ import com.inventoryControl.domain.Address;
 import com.inventoryControl.domain.Seller;
 import com.inventoryControl.repository.SellerRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +34,16 @@ public class SellerService implements ISellerService{
         return sellerRepository.save(seller);
     }
 
-    public List<SellerViewModel> getAll() {
-        return sellerRepository.findAll().stream()
+    public Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize) {
+        var pageable = PageRequest.of(pageNumber, pageSize);
+
+        var sellers = sellerRepository.findAll(pageable).stream()
                 .map(seller -> modelMapper.map(seller, SellerViewModel.class))
                 .collect(Collectors.toList());
+
+        var totalRows = sellerRepository.count();
+
+        return new PageImpl<>(sellers, pageable, totalRows);
     }
 
     public boolean verifyExistenceOfCpf(String cpf) {

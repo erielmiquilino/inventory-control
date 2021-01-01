@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SellerViewModel} from '../model/sellerViewModel';
 import {SellerService} from '../seller.service';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-seller-list',
@@ -11,14 +11,14 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 export class SellerListComponent implements OnInit {
 
   public sellers!: SellerViewModel[];
+  public totalRecords = 0;
+  public loading = true;
 
   constructor(private sellerService: SellerService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService) { }
 
-  ngOnInit(): void {
-    this.loadSellers();
-  }
+  ngOnInit(): void { }
 
   confirmDelete(sellerId: string): void {
     this.confirmationService.confirm({
@@ -39,9 +39,16 @@ export class SellerListComponent implements OnInit {
     });
   }
 
-  private loadSellers(): void {
-    this.sellerService.getAllSellers().subscribe(sellers => {
-      this.sellers = sellers;
+  loadSellers(event: LazyLoadEvent): void {
+    this.loading = true;
+
+    const pageSize = event.rows ?? 12;
+    const pageNumber = (event.first ?? 0) / pageSize;
+
+    this.sellerService.getPaginatedSellers(pageNumber, pageSize).subscribe(sellers => {
+      this.sellers = sellers.content;
+      this.totalRecords = sellers.totalElements;
+      this.loading = false;
     });
   }
 }

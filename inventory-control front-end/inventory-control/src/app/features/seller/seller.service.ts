@@ -10,29 +10,33 @@ import {SellerModel} from './model/SellerModel';
 })
 export class SellerService {
 
-  constructor(private http: HttpClient) { }
+  private readonly sellerRootUrl: string;
 
-  public saveSeller(seller: any): Observable<any> {
-    return this.http.post(`${environment.application}/seller/save`, seller);
+  constructor(private http: HttpClient) {
+    this.sellerRootUrl = `${environment.application}/seller`;
   }
 
-  public getAllSellers(): Observable<SellerViewModel[]> {
-    return this.http.get<SellerViewModel[]>(`${environment.application}/seller`);
+  public saveSeller(seller: any): Observable<any> {
+    return this.http.post(`${this.sellerRootUrl}/save`, seller);
+  }
+
+  public getPaginatedSellers(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(`${this.sellerRootUrl}/getPaginated/${pageNumber}/${pageSize}`);
   }
 
   public verifyExistenceOf(cpf: string): Observable<any> {
-    return this.http.get(`${environment.application}/seller/verifyExistenceOf/${cpf}`);
+    return this.http.get(`${this.sellerRootUrl}/verifyExistenceOf/${cpf}`);
   }
 
   public getSellerById(sellerId: string): Observable<SellerModel> {
-    return this.http.get<SellerModel>(`${environment.application}/seller/getById/${sellerId}`);
+    return this.http.get<SellerModel>(`${this.sellerRootUrl}/getById/${sellerId}`);
   }
 
   public putSeller(seller: any): Observable<any> {
-    return this.http.put(`${environment.application}/seller/update`, seller);
+    return this.http.put(`${this.sellerRootUrl}/update`, seller);
   }
 
   public deleteSeller(sellerId: string): Observable<any> {
-    return this.http.delete(`${environment.application}/seller/delete/${sellerId}`);
+    return this.http.delete(`${this.sellerRootUrl}/delete/${sellerId}`);
   }
 }

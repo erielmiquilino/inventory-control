@@ -5,11 +5,10 @@ import com.inventoryControl.controllers.seller.models.SellerViewModel;
 import com.inventoryControl.domain.Seller;
 import com.inventoryControl.service.seller.ISellerService;
 import io.swagger.annotations.Api;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/seller")
@@ -27,9 +26,9 @@ public class SellerController {
         return ResponseEntity.ok(sellerService.saveSeller(sellerModel));
     }
 
-    @GetMapping
-    public ResponseEntity<List<SellerViewModel>> getAllSellers() {
-        return ResponseEntity.ok(sellerService.getAll());
+    @GetMapping("getPaginated/{pageNumber}/{pageSize}")
+    public ResponseEntity<Page<SellerViewModel>> getPaginatedSellers(@PathVariable int pageNumber, @PathVariable int pageSize) {
+        return ResponseEntity.ok(sellerService.getPaginatedSellers(pageNumber, pageSize));
     }
 
     @GetMapping("verifyExistenceOf/{cpf}")

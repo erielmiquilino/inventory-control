@@ -3,14 +3,13 @@ package com.inventoryControl.service.seller;
 import com.inventoryControl.controllers.seller.models.SellerModel;
 import com.inventoryControl.controllers.seller.models.SellerViewModel;
 import com.inventoryControl.domain.Seller;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface ISellerService {
 
     Seller saveSeller(SellerModel sellerModel);
 
-    List<SellerViewModel> getAll();
+    Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize);
 
     boolean verifyExistenceOfCpf(String cpf);
 
