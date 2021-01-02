@@ -23,17 +23,12 @@ jobs:
       - name: Build with Maven
         working-directory: ./inventory-control application
         run: mvn -B package
-      
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: define the frontend folder
+      - run: npm ci
         working-directory: ./inventory-control client
-        run: npm ci
       - run: npm run build --if-present
         working-directory: ./inventory-control client
-      - run: npm test
-        working-directory: ./inventory-control client
-
