@@ -1,0 +1,53 @@
+<p-card id="buttons">
+  <div class="p-d-flex">
+    <div class="p-mr-2">
+      <button routerLink="/sellers/new" pButton pRipple type="button" icon="pi pi-plus" iconPos="right"
+              label="Adicionar"></button>
+    </div>
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="filterKey" (ngModelChange)="findSellers($event)" pInputText placeholder="Busca em qualquer coluna">
+      <button type="button" (click)="loadSellers(null)" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>
+    </div>
+  </div>
+</p-card>
+<br/>
+<p-card>
+  <div style="height: 63vh;">
+    <p-table id="sellersList" [lazy]="true" (onLazyLoad)="loadSellers($event)" [loading]="loading"
+             [showCurrentPageReport]="true"
+             [rowsPerPageOptions]="[12,25,50]" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}"
+             [scrollable]="true" scrollHeight="flex" [paginator]="true" [rows]="12" [totalRecords]="totalRecords"
+             [value]="sellers">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th>Cidade\UF</th>
+          <th>CPF</th>
+          <th>Celular</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-seller>
+        <tr>
+          <td>{{seller.name}}</td>
+          <td>{{seller.city}}\{{seller.state}}</td>
+          <td>{{seller.cpf | cpf}}</td>
+          <td>{{seller.cellphone | cellphone}}</td>
+          <td>
+            <div class="p-d-flex">
+              <p-button class="p-mr-2" [routerLink]="['/sellers/edit', seller.id]" icon="pi pi-pencil"></p-button>
+              <p-button class="p-mr-2" (click)="confirmDelete(seller.id)" icon="pi pi-trash"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <ng-template pTemplate="footer">
+    <div style="height: 30px"></div>
+  </ng-template>
+</p-card>
+
+<p-confirmDialog header="Confirmation" acceptLabel="Sim" rejectLabel="Não"
+                 icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
