@@ -18,15 +18,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: build application
+
       - name: Set up JDK 15.0.1
-      - uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v1.4.3
         with: 
           java-version: '15.0.1'
       - name: Build with Maven
         run: mvn -B package
       
-      - name: build client
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
