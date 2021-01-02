@@ -14,6 +14,8 @@ services:
   mongo_server:
     image: mongo:latest
     container_name: mongo_server
+    volumes:
+      - ./datadir:/var/lib/mongo
     ports:
       - "27017:27017"
 
