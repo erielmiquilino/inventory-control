@@ -4,15 +4,13 @@ import com.inventoryControl.controllers.seller.models.SellerModel;
 import com.inventoryControl.controllers.seller.models.SellerViewModel;
 import com.inventoryControl.domain.Address;
 import com.inventoryControl.domain.Seller;
-import com.inventoryControl.repository.SellerRepository;
+import com.inventoryControl.repository.seller.SellerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,10 +32,10 @@ public class SellerService implements ISellerService{
         return sellerRepository.save(seller);
     }
 
-    public Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize) {
+    public Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize, String key) {
         var pageable = PageRequest.of(pageNumber, pageSize);
 
-        var sellers = sellerRepository.findAll(pageable).stream()
+        var sellers = sellerRepository.findSellerByKey(key, pageable).stream()
                 .map(seller -> modelMapper.map(seller, SellerViewModel.class))
                 .collect(Collectors.toList());
 

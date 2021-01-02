@@ -9,7 +9,7 @@ public interface ISellerService {
 
     Seller saveSeller(SellerModel sellerModel);
 
-    Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize);
+    Page<SellerViewModel> getPaginatedSellers(int pageNumber, int pageSize, String key);
 
     boolean verifyExistenceOfCpf(String cpf);
 

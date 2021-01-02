@@ -27,8 +27,8 @@ public class SellerController {
     }
 
     @GetMapping("getPaginated/{pageNumber}/{pageSize}")
-    public ResponseEntity<Page<SellerViewModel>> getPaginatedSellers(@PathVariable int pageNumber, @PathVariable int pageSize) {
-        return ResponseEntity.ok(sellerService.getPaginatedSellers(pageNumber, pageSize));
+    public ResponseEntity<Page<SellerViewModel>> getPaginatedSellers(@PathVariable int pageNumber, @PathVariable int pageSize, String key) {
+        return ResponseEntity.ok(sellerService.getPaginatedSellers(pageNumber, pageSize, key));
     }
 
     @GetMapping("verifyExistenceOf/{cpf}")
