@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SellerFormComponent} from './features/seller/seller-form/seller-form.component';
 import {InputTextModule} from 'primeng/inputtext';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
@@ -39,25 +39,26 @@ registerLocaleData(ptBr);
     CpfPipe,
     CellphonePipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    InputTextModule,
-    CalendarModule,
-    ReactiveFormsModule,
-    DropdownModule,
-    InputMaskModule,
-    BrowserAnimationsModule,
-    AutoCompleteModule,
-    ButtonModule,
-    HttpClientModule,
-    RippleModule,
-    ToastModule,
-    CardModule,
-    TableModule,
-    ConfirmDialogModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        InputTextModule,
+        CalendarModule,
+        ReactiveFormsModule,
+        DropdownModule,
+        InputMaskModule,
+        BrowserAnimationsModule,
+        AutoCompleteModule,
+        ButtonModule,
+        HttpClientModule,
+        RippleModule,
+        ToastModule,
+        CardModule,
+        TableModule,
+        ConfirmDialogModule,
+        AppRoutingModule,
+        FormsModule
+    ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
     LocalityService,

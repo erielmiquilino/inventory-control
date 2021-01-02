@@ -20,8 +20,12 @@ export class SellerService {
     return this.http.post(`${this.sellerRootUrl}/save`, seller);
   }
 
-  public getPaginatedSellers(pageNumber: number, pageSize: number): Observable<any> {
-    return this.http.get(`${this.sellerRootUrl}/getPaginated/${pageNumber}/${pageSize}`);
+  public getPaginatedSellers(pageNumber: number, pageSize: number, key: string | null): Observable<any> {
+    let filter = '';
+    if (key) {
+      filter = `?key=${key}`;
+    }
+    return this.http.get(`${this.sellerRootUrl}/getPaginated/${pageNumber}/${pageSize}${filter}`);
   }
 
   public verifyExistenceOf(cpf: string): Observable<any> {

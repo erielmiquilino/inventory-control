@@ -1,6 +1,14 @@
 <p-card id="buttons">
-  <button routerLink="/sellers/new" pButton pRipple type="button" icon="pi pi-plus" iconPos="right"
-          label="Adicionar"></button>
+  <div class="p-d-flex">
+    <div class="p-mr-2">
+      <button routerLink="/sellers/new" pButton pRipple type="button" icon="pi pi-plus" iconPos="right"
+              label="Adicionar"></button>
+    </div>
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="filterKey" (ngModelChange)="findSellers($event)" pInputText placeholder="Busca em qualquer coluna">
+      <button type="button" (click)="loadSellers(null)" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>
+    </div>
+  </div>
 </p-card>
 <br/>
 <p-card>
