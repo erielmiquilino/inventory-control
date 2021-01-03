@@ -46,7 +46,8 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@main
         with:
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/application:latest
-          service: hello-cloud-run
+          region: southamerica-east1-b 
+          service: inventory-control-application
           credentials: ${{ secrets.GCP_SA_KEY }}
           project_id:  ${{ secrets.GCP_PROJECT_ID }}
       
