@@ -27,12 +27,12 @@ jobs:
       - name: Build application
         working-directory: ./inventory-control application
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/inventory-control-application:latest .
+          docker build -t gcr.io/inventory-control/application:latest .
               
       - name: Build client
         working-directory: ./inventory-control client
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/inventory-control-client:latest .
+          docker build -t gcr.io/inventory-control/client:latest .
           
       - name: Push application
         run: |
