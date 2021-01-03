@@ -29,15 +29,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./inventory-control application
-          file: Dockerfile
           push: true
-          tags: user/app:latest
+          tags: user/inventory-control-application:latest
 
       - name: Build and push client
         id: docker_build_client
         uses: docker/build-push-action@v2
         with:
           context: ./inventory-control client
-          file: Dockerfile
           push: true
-          tags: user/app:latest
+          tags: user/inventory-control-client:latest
