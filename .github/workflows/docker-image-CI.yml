@@ -31,7 +31,7 @@ jobs:
           context: ./inventory-control application
           file: inventory-control application/Dockerfile
           push: true
-          tags: user/inventory-control-application:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-application:latest
 
       - name: Build and push client
         id: docker_build_client
@@ -40,4 +40,4 @@ jobs:
           context: ./inventory-control client
           file: inventory-control client/Dockerfile
           push: true
-          tags: user/inventory-control-client:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-client:latest
