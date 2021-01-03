@@ -48,6 +48,7 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-application:latest
           service: inventory-control
           credentials: ${{ secrets.GCP_SA_KEY }}
+          project_id:  ${{ GCP_PROJECT_ID }}
 
       - id: deploy_client
         uses: google-github-actions/deploy-cloudrun@main
@@ -55,3 +56,4 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-client:latest
           service: inventory-control
           ccredentials: ${{ secrets.GCP_SA_KEY }}
+          project_id:  ${{ GCP_PROJECT_ID }}
