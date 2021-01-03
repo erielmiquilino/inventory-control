@@ -27,24 +27,26 @@ jobs:
       - name: Build application
         working-directory: ./inventory-control application
         run: |
-          docker build -t gcr.io/inventory-control/application:latest .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/application:latest .
               
       - name: Build client
         working-directory: ./inventory-control client
         run: |
-          docker build -t gcr.io/inventory-control/client:latest .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/client:latest .
           
       - name: Push application
         run: |
-          docker push gcr.io/inventory-control/application:latest           
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/application:latest           
       - name: Push client
         run: |
-          docker push gcr.io/inventory-control/client:latest 
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/client:latest 
       
       - name: Deploy application
         id: deploy
         uses: google-github-actions/deploy-cloudrun@main
         with:
-          image: gcr.io/inventory-control/application:latest
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/application:latest
           service: hello-cloud-run
           credentials: ${{ secrets.GCP_SA_KEY }}
+          project_id:  ${{ secrets.GCP_PROJECT_ID }}
+      
