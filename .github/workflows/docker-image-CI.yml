@@ -41,3 +41,17 @@ jobs:
           file: inventory-control client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-client:latest
+          
+      - id: deploy application
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-application:latest
+          service: inventory-control
+          credentials: ${{ secrets.GCP_SA_KEY }}
+
+      - id: deploy client
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/inventory-control-client:latest
+          service: inventory-control
+          ccredentials: ${{ secrets.GCP_SA_KEY }}
