@@ -42,7 +42,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/client:latest 
       
       - name: Deploy application
-        id: deploy
+        id: deploy_application
         uses: google-github-actions/deploy-cloudrun@main
         with:
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/application:latest
@@ -51,3 +51,13 @@ jobs:
           project_id:  ${{ secrets.GCP_PROJECT_ID }}
           region: southamerica-east1
           env_vars: MONGO_URI=mongodb:// ${{ secrets.MONGO_SERVER_IP }}:27017/inventory-control
+      
+      - name: Deploy client
+        id: deploy_client
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/client:latest
+          service: inventory-control-client
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          project_id:  ${{ secrets.GCP_PROJECT_ID }}
+          region: southamerica-east1
