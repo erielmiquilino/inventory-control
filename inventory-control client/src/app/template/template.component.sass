@@ -1,0 +1,130 @@
+.layout-topbar
+  background-color: #eceff4
+  position: fixed
+  top: 0
+  z-index: 998
+  width: 100%
+  -moz-transition: width 0.15s
+  -o-transition: width 0.15s
+  -webkit-transition: width 0.15s
+  transition: width 0.15s
+  -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1)
+  -moz-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1)
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1)
+  height: 75px
+
+.layout-sidebar
+  width: 240px
+  height: 100%
+  position: fixed
+  top: 0
+  -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1)
+  transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1)
+  z-index: 999
+  transform: translate3d(-180px, 0px, 0px)
+  -moz-transition: transform 0.15s
+  -o-transition: transform 0.15s
+  -webkit-transition: transform 0.15s
+  transition: transform 0.15s
+  -webkit-box-shadow: 3px 0 5px 0 rgba(33, 35, 39, 0.15)
+  -moz-box-shadow: 3px 0 5px 0 rgba(33, 35, 39, 0.15)
+  box-shadow: 3px 0 5px 0 rgba(33, 35, 39, 0.15)
+  background-color: white
+
+.layout-sidebar:hover
+  transform: translate3d(0px, 0px, 0px)
+
+.layout-sidebar .sidebar-logo
+  height: 76px
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  padding: 0 8px
+
+
+.layout-sidebar .layout-menu-container
+  overflow: auto
+  height: calc(100% - 72px)
+
+.layout-sidebar .layout-menu-container .layout-menu
+  list-style-type: none
+  margin: 10px 0 0 0
+  padding: 0 0 120px
+
+.layout-sidebar .layout-menu-container .layout-menu li
+  padding: 4px 10px
+
+
+.layout-sidebar .layout-menu-container .layout-menu li > a
+  padding: 10px
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -moz-border-radius: 6px
+  -webkit-border-radius: 6px
+  -moz-transition: all 0.15s
+  -o-transition: all 0.15s
+  -webkit-transition: all 0.15s
+  transition: all 0.15s
+  align-items: center
+  justify-content: space-between
+  position: relative
+  text-decoration: none
+  color: #4c566a
+  border-radius: 6px
+
+.selected-menu
+  color: white !important
+  background-color: #5e81ac
+  pointer-events: none
+
+.layout-sidebar .layout-menu-container .layout-menu li > a:hover
+  background-color: #f4f4f4
+
+.layout-main
+  margin-left: 60px
+  padding-top: 75px
+  -moz-transition: margin-left 0.15s
+  -o-transition: margin-left 0.15s
+  -webkit-transition: margin-left 0.15s
+  transition: margin-left 0.15s
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -webkit-box-pack: justify
+  -ms-flex-pack: justify
+  justify-content: space-between
+  -webkit-box-orient: vertical
+  -webkit-box-direction: normal
+  -ms-flex-direction: column
+  flex-direction: column
+  min-height: 100vh
+  background-color: #eceff4
+
+.layout-breadcrumb
+  background-color: #d8dee9
+  padding: 10px 30px
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.layout-content
+  flex: 1 0 auto
+  padding: 2em
+
+
+.breadcrumb-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+.breadcrumb-item
+  text-decoration: none
+  color: #5e81ac
+  font-size: 13px
+
+
