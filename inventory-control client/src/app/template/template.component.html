@@ -1,0 +1,35 @@
+<div class="layout-sidebar" >
+  <div class="sidebar-logo">
+
+  </div>
+  <div class="layout-menu-container">
+    <ul class="layout-menu">
+      <li>
+        <a [routerLink]="['/sellers']" [ngClass]="{'selected-menu': isSelectedMenu('/sellers')}">
+          <span class="menuitem-text">Vededores</span>
+          <i class="pi pi-fw pi-users" ></i>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/folders']" [ngClass]="{'selected-menu': isSelectedMenu('/folders')}">
+          <span class="menuitem-text">Pastas</span>
+          <i class="pi pi-fw pi-folder-open" ></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="layout-topbar" ></div>
+
+<div class="layout-main">
+  <div class="layout-breadcrumb">
+    <ul class="breadcrumb-list">
+      <li><a class="breadcrumb-item" routerLink="">Vendedores</a></li>
+    </ul>
+  </div>
+
+  <div class="layout-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

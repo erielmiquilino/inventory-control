@@ -28,6 +28,8 @@ import { CpfValidatorService } from './features/shared/cpf/validators/cpf-valida
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { CpfPipe } from './features/shared/cpf/pipe/cpf.pipe';
 import { CellphonePipe } from './features/shared/cellphone/cellphone.pipe';
+import {TemplateModule} from './template/template.module';
+import { FolderListComponent } from './features/folder/folder-list/folder-list.component';
 
 registerLocaleData(ptBr);
 
@@ -38,6 +40,7 @@ registerLocaleData(ptBr);
     SellerListComponent,
     CpfPipe,
     CellphonePipe,
+    FolderListComponent,
   ],
     imports: [
         BrowserModule,
@@ -57,7 +60,8 @@ registerLocaleData(ptBr);
         TableModule,
         ConfirmDialogModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        TemplateModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {SellerListComponent} from './features/seller/seller-list/seller-list.component';
 import {SellerFormComponent} from './features/seller/seller-form/seller-form.component';
+import {FolderListComponent} from './features/folder/folder-list/folder-list.component';
 
 const routes: Routes = [
   {
     path: 'sellers',
-    component: SellerListComponent,
+    component: SellerListComponent
   },
   {
     path: 'sellers/new',
@@ -17,8 +18,12 @@ const routes: Routes = [
     component: SellerFormComponent
   },
   {
+    path: 'folders',
+    component: FolderListComponent
+  },
+  {
     path: '',
-    redirectTo: '/sellers',
+    redirectTo: '/',
     pathMatch: 'full',
   },
 ];
