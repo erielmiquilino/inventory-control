@@ -30,6 +30,7 @@ import { CpfPipe } from './features/shared/cpf/pipe/cpf.pipe';
 import { CellphonePipe } from './features/shared/cellphone/cellphone.pipe';
 import {TemplateModule} from './template/template.module';
 import { FolderListComponent } from './features/folder/folder-list/folder-list.component';
+import {FileUploadModule} from 'primeng/fileupload';
 
 registerLocaleData(ptBr);
 
@@ -61,7 +62,8 @@ registerLocaleData(ptBr);
         ConfirmDialogModule,
         AppRoutingModule,
         FormsModule,
-        TemplateModule
+        TemplateModule,
+        FileUploadModule
     ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},

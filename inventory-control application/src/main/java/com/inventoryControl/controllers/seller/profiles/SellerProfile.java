@@ -2,7 +2,7 @@ package com.inventoryControl.controllers.seller.profiles;
 
 import com.inventoryControl.controllers.seller.models.SellerModel;
 import com.inventoryControl.controllers.seller.models.SellerViewModel;
-import com.inventoryControl.domain.Seller;
+import com.inventoryControl.domain.seller.Seller;
 import org.modelmapper.ModelMapper;
 
 public class SellerProfile {

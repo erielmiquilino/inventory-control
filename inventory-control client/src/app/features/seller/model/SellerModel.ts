@@ -1,3 +1,5 @@
+import {UploadFileResponseModel} from './UploadFileResponseModel';
+
 export class SellerModel {
   id?: string;
   name!: string;

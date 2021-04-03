@@ -2,13 +2,19 @@ package com.inventoryControl.controllers.seller;
 
 import com.inventoryControl.controllers.seller.models.SellerModel;
 import com.inventoryControl.controllers.seller.models.SellerViewModel;
-import com.inventoryControl.domain.Seller;
+import com.inventoryControl.controllers.seller.models.DocumentFileModel;
+import com.inventoryControl.domain.seller.Seller;
+import com.inventoryControl.domain.enums.FileType;
 import com.inventoryControl.service.seller.ISellerService;
 import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/seller")
@@ -50,4 +56,11 @@ public class SellerController {
     public void deleteSeller(@PathVariable String id) {
         sellerService.deleteSeller(id);
     }
+
+    @PostMapping("uploadDocument/{fileType}")
+    public DocumentFileModel uploadFrontDocument(@RequestParam("file") MultipartFile file, @PathVariable FileType fileType)
+            throws ServletException, IOException {
+        return sellerService.saveFile(file, fileType);
+    }
+
 }

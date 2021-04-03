@@ -39,4 +39,5 @@ public class SellerModel {
 
     private String complement;
 
+    private AttachedDocumentsModel attachedDocuments;
 }

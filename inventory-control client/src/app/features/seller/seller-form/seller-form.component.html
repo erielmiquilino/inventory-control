@@ -114,6 +114,33 @@
       </div>
     </div>
   </form>
+
+  <div class="p-fluid  p-grid">
+
+    <div class="p-field p-col-12">
+      <label for="complement">Frente do documento</label>
+      <p-fileUpload name="frontDocument[]" [showUploadButton]="false" chooseLabel="Selecioanar"
+                    [customUpload]="true" (uploadHandler)="uploadImage($event, 'FrontDocument')"
+                    [auto]="true" [showCancelButton]="false" accept="image/*" [maxFileSize]="10000000">
+      </p-fileUpload>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="complement">Verso do documento</label>
+      <p-fileUpload name="backDocument[]" [showUploadButton]="false" chooseLabel="Selecioanar"
+                    [customUpload]="true" (uploadHandler)="uploadImage($event, 'BackDocument')"
+                    [auto]="true" [showCancelButton]="false" accept="image/*" [maxFileSize]="10000000">
+      </p-fileUpload>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="complement">Comprovante de endereço</label>
+      <p-fileUpload name="proofResidence[]" [showUploadButton]="false" chooseLabel="Selecioanar"
+                    [customUpload]="true" (uploadHandler)="uploadImage($event, 'ProofResidence')"
+                    [auto]="true" [showCancelButton]="false" accept="image/*" [maxFileSize]="10000000">
+      </p-fileUpload>
+    </div>
+  </div>
 </p-card>
 <br/>
 <p-card id="buttons">
@@ -123,7 +150,8 @@
               icon="pi pi-check" class="p-button-success" iconPos="right"></button>
     </div>
     <div class="p-mr-2">
-      <button routerLink="/sellers" label="Cancelar" pButton pRipple icon="pi pi-times" class="p-button-danger" iconPos="right"></button>
+      <button routerLink="/sellers" label="Cancelar" pButton
+              pRipple icon="pi pi-times" class="p-button-danger" iconPos="right"></button>
     </div>
   </div>
 </p-card>

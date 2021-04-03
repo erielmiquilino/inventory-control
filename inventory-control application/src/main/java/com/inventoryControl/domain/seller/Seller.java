@@ -1,6 +1,7 @@
-package com.inventoryControl.domain;
+package com.inventoryControl.domain.seller;
 
 import com.inventoryControl.domain.base.BaseEntity;
+import com.inventoryControl.domain.document.AttachedDocuments;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +24,6 @@ public class Seller extends BaseEntity {
     private LocalDate dateOfBirth;
 
     private Address address;
+
+    private AttachedDocuments attachedDocuments;
 }

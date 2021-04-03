@@ -1,11 +1,9 @@
 package com.inventoryControl.repository.seller;
 
-import com.inventoryControl.domain.Seller;
+import com.inventoryControl.domain.seller.Seller;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
-public interface SellerRepository extends MongoRepository<Seller, String>, CustomSellerRepository {
+public interface SellerRepository extends MongoRepository<Seller, String>, ICustomSellerRepository {
 
     boolean existsByCpf(String cpf);
 

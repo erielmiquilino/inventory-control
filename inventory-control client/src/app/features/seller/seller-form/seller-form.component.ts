@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CpfValidatorService} from '../../shared/cpf/validators/cpf-validator.service';
 import {SellerModel} from '../model/SellerModel';
 import {DateTime} from 'luxon';
+import {AttachedDocumentsModel} from '../model/AttachedDocumentsModel';
 
 @Component({
   selector: 'app-seller-form',
@@ -37,6 +38,7 @@ export class SellerFormComponent implements OnInit {
   public validationCpfResult!: string;
   public sellerEdit?: SellerModel;
   public sellerForm!: FormGroup;
+  public attachedDocuments: AttachedDocumentsModel = new AttachedDocumentsModel();
 
   ngOnInit(): void {
     this.loadStates();
@@ -147,8 +149,38 @@ export class SellerFormComponent implements OnInit {
     if (this.sellerEdit) {
       this.saveEditedSeller(seller);
     } else {
-      this.saveNewSeller(seller);
+      if (this.attachedDocumentsIsValid()) {
+        seller.attachedDocuments = this.attachedDocuments;
+        this.saveNewSeller(seller);
+      } else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Atenção',
+          detail: 'Anexe todos os documentos antes de salvar'
+        });
+      }
     }
+  }
+
+  uploadImage(image: any, imageType: string): void {
+    const formData = new FormData();
+    formData.append('file', image.files[0]);
+    this.sellerService.uploadDocument(formData, imageType).subscribe(result => {
+
+      if (imageType === 'FrontDocument'){
+        this.attachedDocuments.frontDocument = result;
+      } else if (imageType === 'BackDocument'){
+        this.attachedDocuments.backDocument = result;
+      } else {
+        this.attachedDocuments.proofResidence = result;
+      }
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Imagem enviada com sucesso!'
+      });
+    });
   }
 
   private saveEditedSeller(seller: any): void {
@@ -189,5 +221,11 @@ export class SellerFormComponent implements OnInit {
       street: cep.logradouro,
       neighborhood: cep.bairro
     });
+  }
+
+  private attachedDocumentsIsValid(): boolean {
+    return this.attachedDocuments.proofResidence != null
+    && this.attachedDocuments.frontDocument != null
+    && this.attachedDocuments.backDocument != null;
   }
 }

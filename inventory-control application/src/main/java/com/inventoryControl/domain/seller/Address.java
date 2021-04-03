@@ -1,4 +1,4 @@
-package com.inventoryControl.domain;
+package com.inventoryControl.domain.seller;
 
 import lombok.Getter;
 import lombok.Setter;

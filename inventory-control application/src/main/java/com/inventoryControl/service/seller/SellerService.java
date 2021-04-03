@@ -2,26 +2,32 @@ package com.inventoryControl.service.seller;
 
 import com.inventoryControl.controllers.seller.models.SellerModel;
 import com.inventoryControl.controllers.seller.models.SellerViewModel;
-import com.inventoryControl.domain.Address;
-import com.inventoryControl.domain.Seller;
+import com.inventoryControl.controllers.seller.models.DocumentFileModel;
+import com.inventoryControl.domain.seller.Address;
+import com.inventoryControl.domain.seller.Seller;
+import com.inventoryControl.domain.enums.FileType;
 import com.inventoryControl.repository.seller.SellerRepository;
+import com.inventoryControl.service.GoogleStorageAppService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Service
 public class SellerService implements ISellerService{
 
     private final SellerRepository sellerRepository;
-
+    private final GoogleStorageAppService googleStorageAppService;
     private final ModelMapper modelMapper;
 
-    public SellerService(SellerRepository sellerRepository, ModelMapper modelMapper) {
+    public SellerService(SellerRepository sellerRepository, GoogleStorageAppService googleStorageAppService, ModelMapper modelMapper) {
         this.sellerRepository = sellerRepository;
+        this.googleStorageAppService = googleStorageAppService;
         this.modelMapper = modelMapper;
     }
 
@@ -64,5 +70,9 @@ public class SellerService implements ISellerService{
 
     public void deleteSeller(String id) {
         sellerRepository.deleteById(id);
+    }
+
+    public DocumentFileModel saveFile(MultipartFile file, FileType fileType) throws IOException {
+        return googleStorageAppService.save(file, fileType);
     }
 }

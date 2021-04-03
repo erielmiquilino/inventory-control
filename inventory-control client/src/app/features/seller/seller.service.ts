@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {SellerViewModel} from './model/sellerViewModel';
@@ -42,5 +42,9 @@ export class SellerService {
 
   public deleteSeller(sellerId: string): Observable<any> {
     return this.http.delete(`${this.sellerRootUrl}/delete/${sellerId}`);
+  }
+
+  public uploadDocument(image: any, imageType: string): Observable<any> {
+    return this.http.post(`${this.sellerRootUrl}/uploadDocument/${imageType}`, image);
   }
 }
